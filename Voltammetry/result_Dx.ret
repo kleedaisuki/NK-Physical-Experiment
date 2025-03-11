@@ -1,0 +1,5 @@
+[2025-03-11 20:35:09.208836 figure output]
+.SVR(RBF)
+> r: 0.78
+Parameters:
+{'C': 175, 'epsilon': 0.55, 'gamma': 1}
