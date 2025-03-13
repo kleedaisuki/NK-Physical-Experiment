@@ -4,7 +4,7 @@
 
 from datetime import datetime  # default
 from pandas import read_csv, DataFrame  # using 2.2.3
-from numpy import mean, sqrt, array, ndarray  # using 1.26.3
+from numpy import sqrt, array, ndarray  # using 1.26.3
 from sklearn.linear_model import LinearRegression  # using 1.6.1
 from sklearn.svm import SVR  # using 1.6.1
 from sklearn.model_selection import GridSearchCV  # using 1.6.1
@@ -18,10 +18,16 @@ def analysis_U_I_data(path: str) -> None:
     I_list: list[float] = [float(number) * 0.001 for number in csv["I"]]
 
     # Computation.
-    r_list: list[float] = [U_list[i] / I_list[i] for i in range(0, len(U_list))]
-    r: float = mean(r_list)
-    std: float = sqrt(
-        sum([(r_list[i] - r) ** 2 for i in range(len(r_list))]) / (len(r_list) - 1)
+    u1: float = U_list[0]
+    u2: float = U_list[len(U_list) - 1]
+    i1: float = I_list[0]
+    i2: float = I_list[len(U_list) - 1]
+
+    r: float = (u2 - u1) / (i2 - i1 - (u2 - u1) / 1e7)
+    delta_u: float = 0.02 * 0.01 * max(U_list) + 4 * 0.0001
+    delta_i: float = 1.2 * 0.01 * max(I_list) * 1000 + 3 * 0.01
+    px: float = sqrt(
+        (delta_u / (u2 - u1)) ** 2 + (delta_i * 0.001 / (i2 - i1)) ** 2
     )
 
     # Write results to file.
@@ -30,10 +36,11 @@ def analysis_U_I_data(path: str) -> None:
             result.write(f"\n[{datetime.now()} statistics output]\n")
         else:
             result.write(f"[{datetime.now()} statistics output]\n")
-        result.write(f"> R(average): {round(r, 2):.2f}\n")
-        result.write(f"> std: +- {round(std, 2):.2f} +- {3 * 0.01}\n")
-        result.write(f"> px: {round(std / r * 100, 2):.2f}%\n")
-        result.write(f"Result: {round(r, 2):.2f} +- {round(std, 2):.2f}\n")
+        result.write(f"> R: {round(r, 2):.2f}\n")
+        result.write(f"> delta_U: +- {round(delta_u, 4):.4f}V\n")
+        result.write(f"> delta_I: +- {round(delta_i, 2):.2f}mA\n")
+        result.write(f"> px: {round(px * 100, 2):.2f}%\n")
+        result.write(f"Result: {round(r, 2):.2f} +- {round(px * r, 2):.2f}\n")
 
 
 def draw_linear(path: str) -> None:
