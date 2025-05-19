@@ -1,11 +1,7 @@
-# author: kleedaisuki
-# encoding: UTF-8
-# using Python 3.12.0
-
-from datetime import datetime  # default
-from pandas import read_csv, DataFrame  # using 2.2.3
-from sklearn.linear_model import LinearRegression  # using 1.6.1
-from matplotlib import pyplot as plt  # using 3.8.2
+from datetime import datetime
+from pandas import read_csv, DataFrame
+from sklearn.linear_model import LinearRegression
+from matplotlib import pyplot as plt
 
 
 def automatic(func) -> any:

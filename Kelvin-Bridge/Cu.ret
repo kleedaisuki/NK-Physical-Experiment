@@ -10,5 +10,5 @@
 > u_r: 0.0795e-4
 > S: 28.49
 > Rx: 1.3420e-4 +- 0.0795e-4
-> u_resi: 0.011e-8
-> Resistivity: 0.1802e-8
+> u_resi: 0.011e-7
+> Resistivity: 0.1802e-7

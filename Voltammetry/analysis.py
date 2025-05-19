@@ -1,14 +1,10 @@
-# author: kleedaisuki
-# encoding: UTF-8
-# using Python 3.12.0
-
-from datetime import datetime  # default
-from pandas import read_csv, DataFrame  # using 2.2.3
-from numpy import sqrt, array, ndarray  # using 1.26.3
-from sklearn.linear_model import LinearRegression  # using 1.6.1
-from sklearn.svm import SVR  # using 1.6.1
-from sklearn.model_selection import GridSearchCV  # using 1.6.1
-from matplotlib import pyplot as plt  # using 3.8.2
+from datetime import datetime
+from pandas import read_csv, DataFrame
+from numpy import sqrt, array, ndarray
+from sklearn.linear_model import LinearRegression
+from sklearn.svm import SVR
+from sklearn.model_selection import GridSearchCV
+from matplotlib import pyplot as plt
 
 
 def analysis_U_I_data(path: str) -> None:
@@ -26,9 +22,7 @@ def analysis_U_I_data(path: str) -> None:
     r: float = (u2 - u1) / (i2 - i1 - (u2 - u1) / 1e7)
     delta_u: float = 0.02 * 0.01 * max(U_list) + 4 * 0.0001
     delta_i: float = 1.2 * 0.01 * max(I_list) * 1000 + 3 * 0.01
-    px: float = sqrt(
-        (delta_u / (u2 - u1)) ** 2 + (delta_i * 0.001 / (i2 - i1)) ** 2
-    )
+    px: float = sqrt((delta_u / (u2 - u1)) ** 2 + (delta_i * 0.001 / (i2 - i1)) ** 2)
 
     # Write results to file.
     with open(f"{path.removesuffix(".csv")}.ret", "a+") as result:
@@ -109,7 +103,7 @@ def draw(path: str) -> None:
     I_array: ndarray[float] = array([float(number) for number in csv["I"]])
 
     # Find best parameters for Support Vector Regression.
-    param_grid: dict[str: list[float]] = {
+    param_grid: dict[str : list[float]] = {
         "C": [175, 200, 225],
         "gamma": [0.7, 1, 1.2],
         "epsilon": [0.55, 0.6, 0.63],

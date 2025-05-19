@@ -1,7 +1,3 @@
-# author: kleedaisuki
-# encoding: UTF-8
-# using Python 3.12.0
-
 from datetime import datetime
 from numpy import mean, std, sqrt, pi
 from scipy.stats import pearsonr
@@ -69,8 +65,8 @@ def compute_resistivity(
     resistivity: float = pi / 4 * Rx * diameter**2 / length
     u_resi: float = u_a * resistivity
     with open(ret_file, "a") as ret:
-        ret.write(f"> u_resi: {round(u_resi * 10000000, 3):.3f}e-8\n")
-        ret.write(f"> Resistivity: {round(resistivity * 10000000, 4):.4f}e-8\n")
+        ret.write(f"> u_resi: {round(u_resi * 10000000, 3):.3f}e-7\n")
+        ret.write(f"> Resistivity: {round(resistivity * 10000000, 4):.4f}e-7\n")
 
 
 @automatic
